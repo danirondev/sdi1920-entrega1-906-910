@@ -1,40 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="fragments/head" />
+<head>
+<title>Notaneitor</title>
+<meta charset="utf-8" />
+</head>
 <body>
-	<!-- Barra de Navegación superior -->
-	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Usuarios</h2>
-		<p>Los usuarios que actualmente figuran en el sistema son los
-			siguientes:</p>
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Email</th>
-						<th>Nombre</th>
-						<th>Apellidos</th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user : ${usersList}">
-						<td th:text="${user.email}">ramon@uniovi.es</td>
-						<td th:text="${user.name}">Nombre del alumno</td>
-						<td th:text="${user.lastName}">Apellidos del alumno</td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
-						<td><a th:href="${'/user/delete/' + user.id}">eliminar</a></td>
-					</tr>
-				</tbody>
-			</table>
+		<h1>List Thymeleaf</h1>
+		<div th:each="user : ${userList}">
+			<p>
+				<span th:text="${user.id}"></span> 
+				<a th:href="${'/user/details/' + user.id}">details</a> <a
+					th:href="${'/user/delete/' + user.id}">delete</a>
+			</p>
 		</div>
+		<div th:if="${#lists.isEmpty(userList)}">No users</div>
 	</div>
-	<footer th:replace="fragments/footer" />
 </body>
 </html>
