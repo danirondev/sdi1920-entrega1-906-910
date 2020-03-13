@@ -1,5 +1,5 @@
 package com.uniovi.entities;
 
-public class Peticion {
+public class Petition {
 
 }

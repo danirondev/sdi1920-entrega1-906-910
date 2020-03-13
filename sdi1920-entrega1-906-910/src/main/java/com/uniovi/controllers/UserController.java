@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.uniovi.entities.*;
+import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.SignUpFormValidator;
@@ -25,6 +26,9 @@ public class UserController {
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
 	
+	@Autowired
+	private RolesService rolesService;
+	
 	@RequestMapping("/user/list")
 	public String getListado(Model model){
 		model.addAttribute("usersList", usersService.getUsers());
@@ -33,7 +37,7 @@ public class UserController {
 	
 	@RequestMapping(value="/user/add")
 	public String getUser(Model model){
-		model.addAttribute("usersList", usersService.getUsers());
+		model.addAttribute("rolesList", rolesService.getRoles());
 		return "user/add";
 	}
 	
@@ -81,9 +85,10 @@ public class UserController {
 		if(result.hasErrors())
 			return "signup";
 		
-	 usersService.addUser(user);
-	 securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
-	 return "redirect:home";
+		user.setRole(rolesService.getRoles()[0]);
+		usersService.addUser(user);
+		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+		return "redirect:home";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -96,7 +101,7 @@ public class UserController {
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
 		 User activeUser = usersService.getUserByEmail(email);
-		 model.addAttribute("markList", activeUser.getMarks());
+		 model.addAttribute("friendList", activeUser.getFriends());
 		 return "home";
 	}
 }

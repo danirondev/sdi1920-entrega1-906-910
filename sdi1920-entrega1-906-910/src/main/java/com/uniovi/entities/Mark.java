@@ -2,16 +2,16 @@ package com.uniovi.entities;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Mark {
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private Long id;
 	private String description;
 	private Double score;
 	
-	@ManyToOne
-	@JoinColumn(name="user.id")
+	//@ManyToOne
+	//@JoinColumn(name="user.id")
 	private User user;
 	
 	public Mark(Long id, String description, Double score) {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Notaneitor</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2>Amigos</h2>
+		<p>Las amigos que actualmente figuran en el sistema son los
+			siguientes:</p>
+		<button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
+		<script>
+			$("#updateButton").click(function() {
+				$("#tableFriends").load('/friend/list/update');
+			});
+		</script>
+		<div class="table-responsive">
+			<table class="table table-hover" id="tableFriends">
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th>Email</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="friend : ${friendList}">
+						<td th:text="${friend.id}">1</td>
+						<td th:text="${friend.email}">carles@email.com </td>					
+						<td th:text="${friend.name}">Juan </td>
+						<td th:text="${friend.lastname}">Pazurrita</td>
+						<td><a th:href="${'/friend/details/' + friend.id}">detalles</a></td>
+						<td><a th:href="${'/friend/edit/' + friend.id}">modificar</a></td>
+						<td><a th:href="${'/friend/delete/' + friend.id}">eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+</body>
+</html>
