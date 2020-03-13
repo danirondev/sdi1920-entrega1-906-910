@@ -42,7 +42,6 @@ public class InsertSampleDataService {
 		User user6 = new User("admin@email.com", "Admin", "Root");
 		user6.setPassword("admin");
 		user6.setRole(rolesService.getRoles()[1]);
-
 		
 		Set user1Marks = new HashSet<Mark>() {
 			{
