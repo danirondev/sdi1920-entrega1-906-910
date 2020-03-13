@@ -21,7 +21,7 @@ public class SignUpFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Error.empty");
-		if (!user.getEmail().endsWith("uniovi.es")) {
+		if (!user.getEmail().endsWith("email.com")) {
 			errors.rejectValue("email", "Error.signup.email.corporative");
 		}
 		if (usersService.getUserByEmail(user.getEmail()) != null) {
