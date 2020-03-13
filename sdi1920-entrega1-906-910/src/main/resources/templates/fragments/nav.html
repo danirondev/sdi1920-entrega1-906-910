@@ -14,11 +14,11 @@
 				<li><a href="/">Home</a></li>
 				<li id="marks-menu" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Gestión de notas <span class="caret"></span>
+						Amistades <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li sec:authorize="hasRole('ROLE_PROFESSOR')"><a href="/mark/add">Agregar Nota</a></li>
-						<li><a href="/mark/list">Ver Notas</a></li>
+						<li sec:authorize="hasRole('ROLE_USER')"><a href="/mark/add">Agregar Amigo</a></li>
+						<li><a href="/mark/list">Ver Amigos</a></li>
 					</ul>
 				</li>
 				<li id="users-menu" class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')" >

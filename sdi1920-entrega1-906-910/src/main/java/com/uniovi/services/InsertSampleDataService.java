@@ -14,20 +14,35 @@ public class InsertSampleDataService {
 	@Autowired
 	private UsersService usersService;
 	
+	@Autowired
+	private RolesService rolesService;
+	
 	@PostConstruct
 	public void init() {
-		User user1 = new User("Pedro@email.com", "Pedro", "Díaz");
+		User user1 = new User("pedro@email.com", "Pedro", "Díaz");
 		user1.setPassword("123456");
-		User user2 = new User("Lucas@email.com", "Lucas", "Núñez");
+		user1.setRole(rolesService.getRoles()[0]);
+		
+		User user2 = new User("lucas@email.com", "Lucas", "Núñez");
 		user2.setPassword("123456");
-		User user3 = new User("Maria@email.com", "María", "Rodríguez");
+		user2.setRole(rolesService.getRoles()[0]);
+		
+		User user3 = new User("maria@email.com", "María", "Rodríguez");
 		user3.setPassword("123456");
-		User user4 = new User("Marta@email.com", "Marta", "Almonte");
+		user3.setRole(rolesService.getRoles()[0]);
+		
+		User user4 = new User("marta@email.com", "Marta", "Almonte");
 		user4.setPassword("123456");
-		User user5 = new User("Pelayo@email.com", "Pelayo", "Valdes");
+		user4.setRole(rolesService.getRoles()[0]);
+		
+		User user5 = new User("pelayo@email.com", "Pelayo", "Valdes");
 		user5.setPassword("123456");
-		User user6 = new User("Edward@email.com", "Edward", "Núñez");
-		user6.setPassword("123456");
+		user5.setRole(rolesService.getRoles()[0]);
+		
+		User user6 = new User("admin@email.com", "Admin", "Root");
+		user6.setPassword("admin");
+		user6.setRole(rolesService.getRoles()[1]);
+
 		
 		Set user1Marks = new HashSet<Mark>() {
 			{
