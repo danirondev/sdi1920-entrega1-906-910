@@ -48,6 +48,7 @@ public class InsertSampleDataService {
 		};
 		user2.setMarks(user2Marks);
 		Set user3Marks = new HashSet<Mark>() {
+			
 			{
 				;
 				add(new Mark("Nota C1", 5.5, user3));
