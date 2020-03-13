@@ -101,7 +101,7 @@ public class UserController {
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
 		 User activeUser = usersService.getUserByEmail(email);
-		 model.addAttribute("markList", activeUser.getMarks());
+		 model.addAttribute("friendList", activeUser.getFriends());
 		 return "home";
 	}
 }

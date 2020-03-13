@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uniovi.entities.Friend;
 import com.uniovi.entities.Mark;
 import com.uniovi.entities.User;
 
@@ -43,42 +45,39 @@ public class InsertSampleDataService {
 		user6.setPassword("admin");
 		user6.setRole(rolesService.getRoles()[1]);
 		
-		Set user1Marks = new HashSet<Mark>() {
+		Set user1Friends = new HashSet<Friend>() {
 			{
-				add(new Mark("Nota A1", 10.0, user1));
-				add(new Mark("Nota A2", 9.0, user1));
-				add(new Mark("Nota A3", 7.0, user1));
-				add(new Mark("Nota A4", 6.5, user1));
+				add(new Friend(user2.getEmail(),user2.getName(),user2.getLastName(),user1));
+				add(new Friend(user5.getEmail(),user5.getName(),user5.getLastName(),user1));
 			}
 		};
-		user1.setMarks(user1Marks);
-		Set user2Marks = new HashSet<Mark>() {
+		user1.setFriends(user1Friends);
+		
+		Set user2Friends = new HashSet<Friend>() {
 			{
-				add(new Mark("Nota B1", 5.0, user2));
-				add(new Mark("Nota B2", 4.3, user2));
-				add(new Mark("Nota B3", 8.0, user2));
-				add(new Mark("Nota B4", 3.5, user2));
+				add(new Friend(user1.getEmail(),user1.getName(),user1.getLastName(),user2));
+				add(new Friend(user4.getEmail(),user4.getName(),user4.getLastName(),user2));
 			}
 		};
-		user2.setMarks(user2Marks);
-		Set user3Marks = new HashSet<Mark>() {
-			
+		user2.setFriends(user2Friends);
+		
+		Set user3Friends = new HashSet<Friend>() {
 			{
-				;
-				add(new Mark("Nota C1", 5.5, user3));
-				add(new Mark("Nota C2", 6.6, user3));
-				add(new Mark("Nota C3", 7.0, user3));
+				add(new Friend(user2.getEmail(),user2.getName(),user2.getLastName(),user3));
+				add(new Friend(user1.getEmail(),user1.getName(),user1.getLastName(),user3));
+
 			}
 		};
-		user3.setMarks(user3Marks);
-		Set user4Marks = new HashSet<Mark>() {
+		user3.setFriends(user3Friends);
+		
+		Set user4Friends = new HashSet<Friend>() {
 			{
-				add(new Mark("Nota D1", 10.0, user4));
-				add(new Mark("Nota D2", 8.0, user4));
-				add(new Mark("Nota D3", 9.0, user4));
+				add(new Friend(user3.getEmail(),user3.getName(),user3.getLastName(),user4));
+				add(new Friend(user2.getEmail(),user2.getName(),user2.getLastName(),user4));
 			}
 		};
-		user4.setMarks(user4Marks);
+		user4.setFriends(user4Friends);
+		
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);
