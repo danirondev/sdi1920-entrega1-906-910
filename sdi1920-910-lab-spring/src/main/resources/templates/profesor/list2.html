@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Notaneitor</title>
+<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container">
+		<h1>List Thymeleaf</h1>
+		<div th:each="profesor : ${profList}">
+			<p>
+				<span th:text="${profesor.id}"></span>
+				<span th:text="${profesor.DNI}"></span> 
+				<span th:text="${profesor.nombre}"></span> 
+				<span th:text="${profesor.apellidos}"></span>
+				<span th:text="${profesor.categoria}"></span> 
+				<a th:href="${'/profesor/details/' + profesor.id}">details</a> 
+				<a th:href="${'/profesor/delete/' + profesor.id}">delete</a>
+			</p>
+		</div>
+		<div th:if="${#lists.isEmpty(profList)}">Sin profesores</div>
+	</div>
+</body>
+</html>
