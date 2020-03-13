@@ -7,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.pageobjects.PO_HomeView;
 import com.uniovi.pageobjects.PO_Properties;
+import com.uniovi.pageobjects.PO_RegisterView;
+import com.uniovi.pageobjects.PO_View;
+import com.uniovi.utils.SeleniumUtils;
 
 import org.junit.runners.MethodSorters; 
 
@@ -68,8 +71,18 @@ public class Sdi1920Entrega1906910ApplicationTests {
 	@Test  
 	public void PR04() {   
 		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(), PO_Properties.getENGLISH()); 
-		//SeleniumUtils.esperarSegundos(driver, 2); 
-		driver.quit(); 
+		SeleniumUtils.esperarSegundos(driver, 2); 
+	}
+	
+	//PR05. Prueba del formulario de registro. Caso válido.
+	@Test
+	public void PR05() {
+		//Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		//Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "ramon@email.com", "Josefo", "Perez", "99009900", "99009900");
+		//Comprobamos que entramos en la seccion privada
+		PO_View.checkElement(driver, "text", "Notas del usuario");
 	}
 	
 	//Al finalizar la última prueba 
