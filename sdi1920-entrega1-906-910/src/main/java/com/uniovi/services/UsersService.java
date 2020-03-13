@@ -1,34 +1,51 @@
 package com.uniovi.services;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.uniovi.entities.Usuario;
+import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
+
 
 @Service
 public class UsersService {
 
 	@Autowired
 	private UsersRepository usersRepository;
-
-	public List<Usuario> getUsuarios(){
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usersRepository.findAll().forEach(usuarios::add);
-		return usuarios;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	/*
+	@PostConstruct
+	public void init() {
 	}
-
-	public Usuario getUsuario(Long id){
+	*/
+	
+	public List<User> getUsers() {
+		List<User> users = new ArrayList<User>();
+		usersRepository.findAll().forEach(users::add);
+		return users;
+	}
+	
+	public User getUser(Long id) {
 		return usersRepository.findById(id).get();
 	}
-
-	public void addUsuario(Usuario usuario){
-		usersRepository.save(usuario);
+	
+	public void addUser(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		usersRepository.save(user);
 	}
-
-	public void deleteUsuario(Long id){
-		usersRepository.deleteById(id);
+	
+	public User getUserByEmail(String email) {
+		return usersRepository.findByEmail(email);
+		}
+	
+	public void deleteUser(Long id) {
+		usersRepository. deleteById(id);
 	}
+	
+	
 
 }
