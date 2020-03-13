@@ -16,12 +16,7 @@ public class UsersService {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	/*
-	@PostConstruct
-	public void init() {
-	}
-	*/
+
 	
 	public List<User> getUsers() {
 		List<User> users = new ArrayList<User>();
