@@ -10,7 +10,7 @@
 				<label class="control-label col-sm-2" for="username">Email:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="username"
-						placeholder="Ejemplo: ramon@uniovi.es" required="true" />
+						placeholder="Ejemplo: ramon@email.com" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -18,8 +18,12 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="password"
 						placeholder="Entre el Password" required="true" />
+						<span th:text="${message}"></span> <span class="text-danger"
+					th:if="${error != null}" th:text="${error}">
 				</div>
 			</div>
+			
+			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-primary">Login</button>

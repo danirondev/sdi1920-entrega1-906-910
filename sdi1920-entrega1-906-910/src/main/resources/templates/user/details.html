@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Notaneitor</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+<head th:replace="fragments/head"/>
 <body>
 
-<!-- Barra de Navegación superior -->
-<nav th:replace="fragments/nav" />
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
 
-
-
-<div class="container">
-		<h2>Detalles de la nota</h2>
+	<div class="container">
+		<h2>Detalles del usuario</h2>
 		<div class="panel panel-default">
-			<div class="panel-heading">DNI</div>
-			<div class="panel-body" th:text="${mark.user.dni}">28276</div>
+			<div class="panel-heading">Email</div>
+			<div class="panel-body" th:text="${user.email}"></div>
 		</div>
 		<div class="panel panel-default">
-	  <div class="panel-heading">Puntuación</div>
-	  <div class="panel-body" th:text="${mark.score}">
-		100
-	  </div>
-  </div>
-</div>
+			<div class="panel-heading">Nombre</div>
+			<div class="panel-body" th:text="${user.name}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Apellido</div>
+			<div class="panel-body" th:text="${user.lastName}"></div>
+		</div>
+	</div>
 
 
 </body>
