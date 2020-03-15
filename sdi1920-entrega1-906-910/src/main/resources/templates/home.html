@@ -27,8 +27,6 @@
 					<tr th:each="user : ${userList}">
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/user/delete/' + user.id}">eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>

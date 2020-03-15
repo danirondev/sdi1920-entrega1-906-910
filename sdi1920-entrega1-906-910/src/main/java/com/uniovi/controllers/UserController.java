@@ -1,8 +1,9 @@
 package com.uniovi.controllers;
 
-import java.awt.List;
 import java.security.Principal;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.Page;
@@ -102,12 +103,11 @@ public class UserController {
 
 	
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Pageable pageable,Model model) {
+	public String home(Model model) {
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
 		 User activeUser = usersService.getUserByEmail(email);
 		 model.addAttribute("userList", activeUser);
-
 		 return "home";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -143,25 +143,48 @@ public class UserController {
 		
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
-		 User activeUser = usersService.getUserByEmail(email);
-		 
-		activeUser.getPetitions().remove(usersService.getUser(id));
-		//usersService.deletePetition(id, activeUser);
-		//usersService.addNewPetition(id, activeUser);
+		 User activeUser = usersService.getUserByEmail(email);		 
+		usersService.deletePetition(id, activeUser);
+		
 		
 		return "redirect:/user/petitions";
 	}
 	
 	
 	@RequestMapping("/user/petitions")
-	public String getPetitions(Model model)
+	public String getPetitions(Model model,Pageable pageable)
 	{	
-		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
-		 User activeUser = usersService.getUserByEmail(email);		 
-		model.addAttribute("petitionsList",activeUser.getPetitions());
+		 User activeUser = usersService.getUserByEmail(email);		
+		 
+		List<User> lista = activeUser.getPetitions().stream().collect(Collectors.toList());
 		
-		return "user/petitions";
-		
+			Page<User> users=new PageImpl<User>(lista);
+			 
+			model.addAttribute("petitionsList",users.getContent());
+			model.addAttribute("page", users);
+
+			return "user/petitions";
+
 	}
+	@RequestMapping("/friend/list")
+	public String getFriendsList(Model model)
+	{	
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 String email = auth.getName();
+		 User activeUser = usersService.getUserByEmail(email);		
+		 
+		List<User> lista = activeUser.getFriends().stream().collect(Collectors.toList());
+		
+			Page<User> users=new PageImpl<User>(lista);
+			 
+			model.addAttribute("friendsList",users.getContent());
+			model.addAttribute("page", users);
+
+			return "friend/list";
+
+	}
+	
+	
 }

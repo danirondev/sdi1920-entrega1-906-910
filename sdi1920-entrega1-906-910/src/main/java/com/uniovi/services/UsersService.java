@@ -80,4 +80,9 @@ public class UsersService {
 
 	}
 	
+	public void addNewFriend() {
+		
+		
+		
+	}
 }

@@ -21,6 +21,7 @@ public interface UsersRepository extends CrudRepository<User, Long>{
 
 	@Query("SELECT r FROM User r WHERE r!=?1")
 	Page<User> findAllLessUser(Pageable pageable,User user);
+
 	
 	//@Modifying
 	//@Transactional
