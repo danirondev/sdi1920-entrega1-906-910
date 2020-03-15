@@ -52,6 +52,11 @@ public class PO_NavView extends PO_View {
 		elementos.get(0).click(); 
 	 } 
 	
+	/**
+	 * * Selecciona la opción de Gestion de Usuarios y posteriormente
+	 * el botón de Ver Usuarios.
+	 * * @param driver: apuntando al navegador abierto actualmente.
+	 */
 	public static void accessSeeker(WebDriver driver) {
 		//clicamos la opcion de gestion de usuarios
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "users-menu", getTimeout());
@@ -61,6 +66,17 @@ public class PO_NavView extends PO_View {
 		//Clickamos la opcion Ver Usuarios
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "btnSeeUsers", getTimeout());
 		elementos.get(0).click(); 
+	}
+	
+	public static void writeOnSeeker(WebDriver driver, String texto) {
+		//Escribimos lo pasado como parametro dentor del buscador de usuarios
+		WebElement userSeeker = driver.findElement(By.id("userSeeker"));
+		userSeeker.click();
+		userSeeker.clear();
+		userSeeker.sendKeys(texto);
+		//Pulsamos el boton de buscar
+		By boton = By.id("btnSeek");
+		driver.findElement(boton).click();
 	}
 
 }
