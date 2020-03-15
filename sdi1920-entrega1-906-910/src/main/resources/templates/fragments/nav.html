@@ -11,7 +11,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-				<li><a href="/">Home</a></li>
+				<li><a href="/home">Home</a></li>
 				<li id="marks-menu" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						Amistades <span class="caret"></span>
@@ -21,14 +21,18 @@
 						<li><a href="/friend/list">Ver Amigos</a></li>
 					</ul>
 				</li>
-				<li id="users-menu" class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')" >
+				<li id="users-menu" class="dropdown" >
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						Gestión de Usuarios <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="/user/add">Agregar usuario</a></li>
 						<li><a href="/user/list">Ver Usuarios</a></li>
 					</ul>
+				</li>
+				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						Modo Administrador 
+					</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

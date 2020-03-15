@@ -23,7 +23,7 @@
 			});
 		</script>
 		<div class="table-responsive">
-			<table class="table table-hover" id="tableFriends">
+			<table class="table table-hover" th:fragment="tableFriends" id="tableFriends">
 				<thead>
 					<tr>
 						<th class="col-md-1">id</th>
@@ -42,7 +42,6 @@
 						<td th:text="${friend.name}">Juan </td>
 						<td th:text="${friend.lastname}">Pazurrita</td>
 						<td><a th:href="${'/friend/details/' + friend.id}">detalles</a></td>
-						<td><a th:href="${'/friend/edit/' + friend.id}">modificar</a></td>
 						<td><a th:href="${'/friend/delete/' + friend.id}">eliminar</a></td>
 					</tr>
 				</tbody>

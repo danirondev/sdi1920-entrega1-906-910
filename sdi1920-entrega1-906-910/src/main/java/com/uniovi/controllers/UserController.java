@@ -1,6 +1,12 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,8 +36,18 @@ public class UserController {
 	private RolesService rolesService;
 	
 	@RequestMapping("/user/list")
-	public String getListado(Model model){
-		model.addAttribute("usersList", usersService.getUsers());
+	public String getListado(Model model, Pageable pageable,
+			@RequestParam(value="",required=false) String searchText)
+	{
+		Page<User> users=new PageImpl<User>(new LinkedList<User>());
+		
+		if(searchText!=null && !searchText.isEmpty()) 
+			users=usersService.searchByEmailNameAndLastname(pageable,searchText);
+		else
+			users=usersService.getUsers(pageable);
+		
+		model.addAttribute("usersList",users.getContent());
+		model.addAttribute("page", users);
 		return "user/list";
 	}
 	
@@ -91,17 +107,46 @@ public class UserController {
 		return "redirect:home";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
-	 return "login";
-	}
+
 	
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model) {
-		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	public String home(Pageable pageable,Model model) {
+		/* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
 		 User activeUser = usersService.getUserByEmail(email);
-		 model.addAttribute("friendList", activeUser.getFriends());
+		 model.addAttribute("userList", activeUser.getFrusersiends());*/
+		 model.addAttribute("userList", usersService.getUsers(pageable));
+
 		 return "home";
 	}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model, String error, String logout) {
+		if (error != null)
+			model.addAttribute("error", "Your username and password is invalid.");
+		if (logout != null)
+			model.addAttribute("message", "You have been logged out successfully.");
+
+		return "login";
+	}
+
+	@RequestMapping("/user/list/update")
+	public String updateList(Model model, Pageable pageable){
+		Page<User> users=new PageImpl<User>(new LinkedList<User>());
+		users= usersService.getUsers(pageable);
+		model.addAttribute("userList",users.getContent());
+		
+		return "user/list :: tableUsers";
+	}
+/*
+	@RequestMapping(value="/user/{id}/resend", method=RequestMethod.GET)
+	public String setResendTrue(Model model, @PathVariable Long id){
+	usersService.setUserResend(true, id);
+	return "redirect:/user/list";
+	}
+	
+	@RequestMapping(value="/user/{id}/noresend", method=RequestMethod.GET)
+	public String setResendFalse(Model model, @PathVariable Long id){
+	usersService.setUserResend(false, id);
+	return "redirect:/user/list";
+	}*/
 }
