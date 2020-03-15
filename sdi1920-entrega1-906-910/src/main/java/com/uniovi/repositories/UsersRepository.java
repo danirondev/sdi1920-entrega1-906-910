@@ -2,8 +2,11 @@ package com.uniovi.repositories;
 
 import com.uniovi.entities.*;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,5 +18,13 @@ public interface UsersRepository extends CrudRepository<User, Long>{
 	Page<User> findAll(Pageable pageable);
 	
 	User findByEmail(String email);
+
+	@Query("SELECT r FROM User r WHERE r!=?1")
+	Page<User> findAllLessUser(Pageable pageable,User user);
+	
+	//@Modifying
+	//@Transactional
+	//@Query("UPDATE User SET resend = ?1 WHERE id = ?2")
+	//void updateResend(Boolean resend, Long id);
 
 }

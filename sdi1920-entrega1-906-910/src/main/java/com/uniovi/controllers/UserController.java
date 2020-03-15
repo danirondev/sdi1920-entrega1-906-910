@@ -1,5 +1,6 @@
 package com.uniovi.controllers;
 
+import java.awt.List;
 import java.security.Principal;
 import java.util.LinkedList;
 
@@ -36,15 +37,19 @@ public class UserController {
 	private RolesService rolesService;
 	
 	@RequestMapping("/user/list")
-	public String getListado(Model model, Pageable pageable,
+	public String getListado(Model model, Pageable pageable, 
 			@RequestParam(value="",required=false) String searchText)
 	{
 		Page<User> users=new PageImpl<User>(new LinkedList<User>());
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 String email = auth.getName();
+		 User activeUser = usersService.getUserByEmail(email);
+		 
 		if(searchText!=null && !searchText.isEmpty()) 
 			users=usersService.searchByEmailNameAndLastname(pageable,searchText);
 		else
-			users=usersService.getUsers(pageable);
+			users=usersService.getUsersLessUser(pageable, activeUser);
 		
 		model.addAttribute("usersList",users.getContent());
 		model.addAttribute("page", users);
@@ -74,20 +79,7 @@ public class UserController {
 		usersService.deleteUser(id);
 		return "redirect:/user/list";
 	}
-	
-	@RequestMapping(value="/user/edit/{id}")
-	public String getEdit(Model model, @PathVariable Long id){
-		User user = usersService.getUser(id);
-		model.addAttribute("user", user);
-		return "user/edit";
-	}
-	
-	@RequestMapping(value="/user/edit/{id}", method=RequestMethod.POST)
-	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute User user){
-		user.setId(id);
-		usersService.addUser(user);
-		return "redirect:/user/details/"+id;
-	}
+
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
@@ -111,11 +103,10 @@ public class UserController {
 	
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Pageable pageable,Model model) {
-		/* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
 		 User activeUser = usersService.getUserByEmail(email);
-		 model.addAttribute("userList", activeUser.getFrusersiends());*/
-		 model.addAttribute("userList", usersService.getUsers(pageable));
+		 model.addAttribute("userList", activeUser);
 
 		 return "home";
 	}
@@ -133,20 +124,44 @@ public class UserController {
 	public String updateList(Model model, Pageable pageable){
 		Page<User> users=new PageImpl<User>(new LinkedList<User>());
 		users= usersService.getUsers(pageable);
-		model.addAttribute("userList",users.getContent());
-		
+		model.addAttribute("userList",users.getContent());	
 		return "user/list :: tableUsers";
 	}
-/*
+	
 	@RequestMapping(value="/user/{id}/resend", method=RequestMethod.GET)
-	public String setResendTrue(Model model, @PathVariable Long id){
-	usersService.setUserResend(true, id);
-	return "redirect:/user/list";
+	public String setResendTrue(Model model, @PathVariable Long id,Principal principal){
+		
+		 String email = principal.getName();
+		 User activeUser = usersService.getUserByEmail(email);
+		usersService.addNewPetition(id, activeUser);
+		
+		return "redirect:/user/list";
 	}
 	
-	@RequestMapping(value="/user/{id}/noresend", method=RequestMethod.GET)
-	public String setResendFalse(Model model, @PathVariable Long id){
-	usersService.setUserResend(false, id);
-	return "redirect:/user/list";
-	}*/
+	@RequestMapping(value="/user/{id}/acepto", method=RequestMethod.GET)
+	public String setAcepto(Model model, @PathVariable Long id){
+		
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 String email = auth.getName();
+		 User activeUser = usersService.getUserByEmail(email);
+		 
+		activeUser.getPetitions().remove(usersService.getUser(id));
+		//usersService.deletePetition(id, activeUser);
+		//usersService.addNewPetition(id, activeUser);
+		
+		return "redirect:/user/petitions";
+	}
+	
+	
+	@RequestMapping("/user/petitions")
+	public String getPetitions(Model model)
+	{	
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 String email = auth.getName();
+		 User activeUser = usersService.getUserByEmail(email);		 
+		model.addAttribute("petitionsList",activeUser.getPetitions());
+		
+		return "user/petitions";
+		
+	}
 }

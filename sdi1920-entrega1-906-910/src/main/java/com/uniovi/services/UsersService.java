@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.uniovi.entities.User;
@@ -23,6 +25,10 @@ public class UsersService {
 	
 	public Page<User> getUsers(Pageable pageable) {
 		Page<User> users = usersRepository.findAll(pageable);
+			return users;
+	}
+	public Page<User> getUsersLessUser(Pageable pageable,User user) {
+		Page<User> users = usersRepository.findAllLessUser(pageable, user);
 			return users;
 	}
 	
@@ -50,18 +56,28 @@ public class UsersService {
 		return users;
 		}
 	
-	
 	public void addNewPetition(Long id, User user) {
 		User toSend=usersRepository.findById(id).get();
-		user.getUsers_system().forEach(u -> {
+		user.getUsers().forEach(u -> {
 			if(u.getId()==id)
 				u.setResend(true);
 		});
-		toSend.getUsers_petition().add(user);
+		toSend.getPetitions().add(user);
 		usersRepository.save(toSend);
 		usersRepository.save(user);
 
 	}
 	
+	public void deletePetition(Long id, User user) {
+		User toSend=usersRepository.findById(id).get();
+		user.getUsers().forEach(u -> {
+			if(u.getId()==id)
+				u.setResend(false);
+		});
+		toSend.getPetitions().add(user);
+		usersRepository.save(toSend);
+		usersRepository.save(user);
 
+	}
+	
 }
