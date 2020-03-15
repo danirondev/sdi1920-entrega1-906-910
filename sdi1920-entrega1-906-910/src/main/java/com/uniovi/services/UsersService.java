@@ -49,7 +49,19 @@ public class UsersService {
 		users = usersRepository.searchByEmailNameAndLastname(pageable,searchText);
 		return users;
 		}
+	
+	
+	public void addNewPetition(Long id, User user) {
+		User toSend=usersRepository.findById(id).get();
+		user.getUsers_system().forEach(u -> {
+			if(u.getId()==id)
+				u.setResend(true);
+		});
+		toSend.getUsers_petition().add(user);
+		usersRepository.save(toSend);
+		usersRepository.save(user);
 
+	}
 	
 
 }

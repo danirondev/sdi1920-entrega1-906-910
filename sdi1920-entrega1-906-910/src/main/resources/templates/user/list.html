@@ -21,7 +21,6 @@
 					<tr>
 						<th>Email</th>
 						<th>Nombre</th>
-						<th>Apellidos</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -34,7 +33,8 @@
 						<div th:if="${user.role == 'ROLE_USER'}" >
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.name}"></td>
-						<td th:text="${user.lastName}"></td>
+						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
+						<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/user/delete/' + user.id}">eliminar</a></td>
 						</div>
 					</tr>
 				</tbody>

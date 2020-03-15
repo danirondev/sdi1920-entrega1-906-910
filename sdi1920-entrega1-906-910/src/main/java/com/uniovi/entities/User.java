@@ -1,5 +1,7 @@
 package com.uniovi.entities;
 import javax.persistence.*;
+
+import java.util.LinkedList;
 import java.util.Set; //A collection that contains no duplicate elements
 
 @Entity
@@ -120,6 +122,16 @@ public class User {
 
 	public void setPetitions(Set<User> petitions) {
 		this.petitions = petitions;
+	}
+
+	public Iterable<User> getUsers_system() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LinkedList<User> getUsers_petition() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
