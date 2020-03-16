@@ -66,6 +66,14 @@ public class PO_PrivateView extends PO_View{
 			driver.navigate().to(URL);
 		}
 		
+		public static void goToUsers(WebDriver driver, String URL) {
+			driver.navigate().to(URL);
+		}
+		
+		public static void goToAdminView(WebDriver driver, String URL) {
+			driver.navigate().to(URL);
+		}
+		
 		public static void goToPetitions(WebDriver driver) {
 			//Navegamos hasta la pestaña de solicitudes
 			driver.navigate().to("http://localhost:8090/user/petitions");
