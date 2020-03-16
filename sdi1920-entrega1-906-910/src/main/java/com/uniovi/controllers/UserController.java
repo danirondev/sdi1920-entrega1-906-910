@@ -74,6 +74,10 @@ public class UserController {
 		model.addAttribute("user", usersService.getUser(id));
 		return "user/details";
 	}
+	@RequestMapping("/user/adminView" )
+	public String getAdminView(){
+		return "user/adminView";
+	}
 	
 	@RequestMapping("/user/delete/{id}" )
 	public String delete(@PathVariable Long id){
