@@ -28,7 +28,7 @@
 					</a>
 					
 					<ul class="dropdown-menu">
-						<li><a th:text="#{seeusers.message}" href="/user/list">Ver Usuarios</a></li>
+						<li><a id="btnSeeUsers" th:text="#{seeusers.message}" href="/user/list">Ver Usuarios</a></li>
 					</ul>
 									
 				</li>
@@ -70,7 +70,7 @@
 					th:text="#{login.message}"> <span
 						class="glyphicon glyphicon-log-in"></span> Identifícate
 				</a></li>
-				<li sec:authorize="isAuthenticated()"><a href="/logout" th:text="#{logout.message}"> <span
+				<li id="btnDisconnect" sec:authorize="isAuthenticated()"><a href="/logout" th:text="#{logout.message}"> <span
 						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>
 
