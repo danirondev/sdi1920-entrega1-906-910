@@ -50,6 +50,6 @@ public class PO_NavView extends PO_View {
 		//CLickamos la opción Inglés partiendo de la opción Español   
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", textLanguage, getTimeout());   
 		elementos.get(0).click(); 
-	 } 
+	 }
 
 }

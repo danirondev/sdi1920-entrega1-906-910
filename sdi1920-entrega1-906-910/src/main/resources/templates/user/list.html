@@ -8,10 +8,10 @@
 		<h2>Usuarios</h2>
 		<form class="navbar-form" action="/user/list">
 			<div class="form-group">
-				<input name="searchText" type="text" class="form-control" size="50"
+				<input id="userSeeker" name="searchText" type="text" class="form-control" size="50"
 					placeholder="Buscar por email, nombre o apellidos del usuario">
 			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
+			<button id="btnSeek" type="submit" class="btn btn-default">Buscar</button>
 		</form>
 		<p th:text="#{userlist.message}">Los usuarios que actualmente figuran en el sistema son los
 			siguientes: </p>
@@ -34,11 +34,11 @@
 						<div th:if="${user.role == 'ROLE_USER'}" >
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.name}"></td>
-						<td><a th:text="#{details.message}" th:href="${'/user/details/' + user.id}">Detalles</a></td>
+						<td><a id="btnDetails" th:text="#{details.message}" th:href="${'/user/details/' + user.id}">Detalles</a></td>
 						<td>
 								<div sec:authorize="hasRole('ROLE_USER')">
 									<div th:if="${!user.resend}">
-										<a th:text="#{add.message}" th:href="${'/user/' + user.id + '/resend'}">Agregar</a>
+										<a id="${'btnAdd' + user.id}" th:text="#{add.message}" th:href="${'/user/' + user.id + '/resend'}">Agregar</a>
 									</div>
 								</div>
 						</td>
