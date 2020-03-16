@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head"/>
+<body>
+
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2 th:text="#{userdetails.message}">Detalles del usuario</h2>
+		<div class="panel panel-default">
+			<div class="panel-heading">Email</div>
+			<div class="panel-body" th:text="${user.email}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div th:text="#{name.message}" class="panel-heading">Nombre</div>
+			<div class="panel-body" th:text="${user.name}"></div>
+		</div>
+		<div class="panel panel-default">
+			<div th:text="#{lastname.message}" class="panel-heading">Apellido</div>
+			<div class="panel-body" th:text="${user.lastName}"></div>
+		</div>
+	</div>
+
+
+</body>
+</html>

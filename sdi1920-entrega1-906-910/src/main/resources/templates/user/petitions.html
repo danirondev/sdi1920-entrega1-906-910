@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
+<body>
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2 th:text="#{petitions.message}">Solicitudes de amistad</h2>
+
+		<p th:text="#{petitionlist.message}">Los usuarios que quieren que seas su amigo: </p>
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th th:text="#{name.message}">Nombre</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${petitionsList}">
+						<div th:if="${!user.aceptado}">
+						<td th:text="${user.name}"></td>
+						<td><a th:text="#{details.message}" th:href="${'/user/details/' + user.id}">Detalles</a></td>
+						<td>
+								<div sec:authorize="hasRole('ROLE_USER')">
+										<a th:text="#{acceptpetition.message}" th:href="${'/user/' + user.id + '/agregar'}">Aceptar Solicitud </a>
+					</div>
+						</td>
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			<footer th:replace="fragments/pagination"/>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+</html>
