@@ -1,7 +1,6 @@
 package com.uniovi.services;
 
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,40 +58,7 @@ public class InsertSampleDataService {
 		user10.setPassword("123456");
 		user10.setRole(rolesService.getRoles()[0]);
 		
-		
-		/*Set user1Friends = new HashSet<User>() {
-			{
-				add(new User(user2.getEmail(),user2.getName(),user2.getLastName()));
-				add(new User(user5.getEmail(),user5.getName(),user5.getLastName()));
-			}
-		};
-		user1.setFriends(user1Friends);
-		
-		Set user2Friends = new HashSet<User>() {
-			{
-				add(new User(user1.getEmail(),user1.getName(),user1.getLastName()));
-				add(new User(user4.getEmail(),user4.getName(),user4.getLastName()));
-			}
-		};
-		user2.setFriends(user2Friends);
-		
-		Set user3Friends = new HashSet<User>() {
-			{
-				add(new User(user2.getEmail(),user2.getName(),user2.getLastName()));
-				add(new User(user1.getEmail(),user1.getName(),user1.getLastName()));
 
-			}
-		};
-		user3.setFriends(user3Friends);
-		
-		Set user4Friends = new HashSet<User>() {
-			{
-				add(new User(user3.getEmail(),user3.getName(),user3.getLastName()));
-				add(new User(user2.getEmail(),user2.getName(),user2.getLastName()));
-			}
-		};
-		user4.setFriends(user4Friends);
-		*/
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);

@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.uniovi.entities.User;
@@ -88,5 +86,12 @@ public class UsersService {
 		usersRepository.save(toSend);
 		usersRepository.save(user);
 
+	}
+	public boolean reciboPeticion(User emisor,User receptor){
+		return receptor.getPetitions().contains(emisor);
+		
+	}
+	public boolean esAmigo(User emisor,User receptor) {
+		return receptor.getFriends().contains(emisor);
 	}
 }

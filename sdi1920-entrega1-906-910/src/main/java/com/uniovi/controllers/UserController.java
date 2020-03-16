@@ -52,6 +52,13 @@ public class UserController {
 		else
 			users=usersService.getUsersLessUser(pageable, activeUser);
 		
+		for(User u : users) {
+			if(usersService.reciboPeticion(activeUser, u) || usersService.esAmigo(activeUser, u))
+				u.setResend(true);
+			else
+				u.setResend(false);
+		}
+		
 		model.addAttribute("usersList",users.getContent());
 		model.addAttribute("page", users);
 		return "user/list";
