@@ -5,23 +5,17 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Amigos</h2>
-		<form class="navbar-form" action="/user/list">
-			<div class="form-group">
-				<input name="searchText" type="text" class="form-control" size="50"
-					placeholder="Buscar por email, nombre o apellidos del usuario">
-			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
-		</form>
-		<p>Lista de amigos:  </p>
+		<h2 th:text="#{friends.message}">Amigos</h2>
+		
+		<p th:text="#{friendslist.message}">Lista de amigos:  </p>
 
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Email</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
+						<th th:text="#{name.message}">Nombre</th>
+						<th th:text="#{lastname.message}">Apellido</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>

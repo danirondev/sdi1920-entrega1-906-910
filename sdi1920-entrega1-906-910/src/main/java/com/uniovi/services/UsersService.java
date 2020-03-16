@@ -72,17 +72,21 @@ public class UsersService {
 		User toSend=usersRepository.findById(id).get();
 		user.getUsers().forEach(u -> {
 			if(u.getId()==id)
-				u.setResend(false);
+				u.setResend(false);				
 		});
+		toSend.setAceptado(true);
 		toSend.getPetitions().add(user);
 		usersRepository.save(toSend);
 		usersRepository.save(user);
 
 	}
 	
-	public void addNewFriend() {
-		
-		
-		
+	public void addNewFriend(Long id, User user) {
+		User toSend=usersRepository.findById(id).get();	
+		toSend.getFriends().add(user);
+		user.getFriends().add(toSend);
+		usersRepository.save(toSend);
+		usersRepository.save(user);
+
 	}
 }

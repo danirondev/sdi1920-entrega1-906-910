@@ -138,14 +138,14 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 	
-	@RequestMapping(value="/user/{id}/acepto", method=RequestMethod.GET)
-	public String setAcepto(Model model, @PathVariable Long id){
+	@RequestMapping(value="/user/{id}/agregar", method=RequestMethod.GET)
+	public String setAgregar(Model model, @PathVariable Long id){
 		
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 String email = auth.getName();
-		 User activeUser = usersService.getUserByEmail(email);		 
+		 User activeUser = usersService.getUserByEmail(email);		
 		usersService.deletePetition(id, activeUser);
-		
+		usersService.addNewFriend(id,activeUser);
 		
 		return "redirect:/user/petitions";
 	}

@@ -16,6 +16,7 @@ public class User {
 	private String lastName;
 	private String role;
 	private Boolean resend = false;
+	private Boolean aceptado = false;
 
 	private String password;
 	@Transient //propiedad que no se almacena en la tabla.
@@ -133,6 +134,14 @@ public class User {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	public Boolean getAceptado() {
+		return aceptado;
+	}
+
+	public void setAceptado(Boolean aceptado) {
+		this.aceptado = aceptado;
 	}
 
 
