@@ -5,17 +5,16 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
 		<h2 th:text="#{welcome.message}"></h2>
-		<h3>Esta es una zona privada de la web</h3>
-		<p>
+		<h3 th:text="#{privatezone.message}">Esta zona solo es visible para ti</h3>
+		<p th:text="#{userauth.message}">
 			Usuario Autenticado como : <span sec:authentication="principal.username"
  			th:inline="text"></span>
 		</p>
-		<p>Lista de usuarios que utilizan la aplicacion</p>
 		<div class="table-responsive">
 			<table class="table table-hover"  >
 				<thead>
 					<tr>
-						<th class="col-md-1">Nombre</th>
+						<th th:text="#{name.message}" class="col-md-1">Nombre</th>
 						<th class="col-md-1">Email</th>		
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -27,8 +26,6 @@
 					<tr th:each="user : ${userList}">
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/user/delete/' + user.id}">eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>

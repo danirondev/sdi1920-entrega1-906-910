@@ -1,7 +1,6 @@
 package com.uniovi.entities;
 import javax.persistence.*;
 
-import java.util.LinkedList;
 import java.util.Set; //A collection that contains no duplicate elements
 
 @Entity
@@ -17,18 +16,23 @@ public class User {
 	private String lastName;
 	private String role;
 	private Boolean resend = false;
+	private Boolean aceptado = false;
 
 	private String password;
 	@Transient //propiedad que no se almacena en la tabla.
 	private String passwordConfirm;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="friend")
-	private Set<User> friends;
+	@JoinTable(name="usuario")
+	private Set<User> users;	
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="petition")
 	private Set<User> petitions;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="friend")
+	private Set<User> friends;
 	
 	public User(String email, String name, String lastName) {
 		super();
@@ -123,15 +127,23 @@ public class User {
 	public void setPetitions(Set<User> petitions) {
 		this.petitions = petitions;
 	}
-
-	public Iterable<User> getUsers_system() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public LinkedList<User> getUsers_petition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Boolean getAceptado() {
+		return aceptado;
+	}
+
+	public void setAceptado(Boolean aceptado) {
+		this.aceptado = aceptado;
+	}
+
+
+
 }

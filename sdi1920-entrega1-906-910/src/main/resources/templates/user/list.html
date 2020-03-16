@@ -13,14 +13,15 @@
 			</div>
 			<button type="submit" class="btn btn-default">Buscar</button>
 		</form>
-		<p>Los usuarios que actualmente figuran en el sistema son los
-			siguientes:</p>
+		<p th:text="#{userlist.message}">Los usuarios que actualmente figuran en el sistema son los
+			siguientes: </p>
+
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Email</th>
-						<th>Nombre</th>
+						<th th:text="#{name.message}">Nombre</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -33,8 +34,15 @@
 						<div th:if="${user.role == 'ROLE_USER'}" >
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.name}"></td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/user/delete/' + user.id}">eliminar</a></td>
+						<td><a th:text="#{details.message}" th:href="${'/user/details/' + user.id}">Detalles</a></td>
+						<td>
+								<div sec:authorize="hasRole('ROLE_USER')">
+									<div th:if="${!user.resend}">
+										<a th:text="#{add.message}" th:href="${'/user/' + user.id + '/resend'}">Agregar</a>
+									</div>
+								</div>
+						</td>
+						<td><a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{delete.message}" th:href="${'/user/delete/' + user.id}">Eliminar</a></td>
 						</div>
 					</tr>
 				</tbody>
